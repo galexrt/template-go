@@ -16,6 +16,7 @@ build:
 tarball:
     files:
         - NOTICE
+        # Other files to be included in the tarball
 crossbuild:
     platforms:
         - linux/amd64

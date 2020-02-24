@@ -29,6 +29,7 @@ jobs:
         - v2-dep-{{ .Branch }}-
         - v2-dep-master-
         - v2-dep-
+    - run: rm -rf /go/src/github.com/galexrt/dellhw_exporter
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
     - run:
@@ -39,11 +40,10 @@ jobs:
           curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
           tar -xz -C /tmp -f /tmp/docker-$VER.tgz
           sudo mv /tmp/docker/* /usr/bin
-          sudo curl -L 'https://github.com/aktau/github-release/releases/download/v0.7.2/linux-amd64-github-release.tar.bz2' | sudo tar xvjf - --strip-components 3 -C /usr/local/bin
           echo -e "export PATH=$PATH:/usr/local/go/bin:/go/bin" >> $BASH_ENV
     - run: make promu
     - setup_remote_docker:
-        docker_layer_caching: true
+        docker_layer_caching: false
     - run: docker info
     - run:
         name: Copy data files
@@ -54,7 +54,6 @@ jobs:
     - run:
         name: Copy built binaries back
         command: |
-          docker cp app:"$(pwd)/.build" .
           mkdir $CIRCLE_ARTIFACTS/binaries/ && cp -a .build/* $CIRCLE_ARTIFACTS/binaries/
           [ -e dellhw_exporter ] && rm dellhw_exporter
           ln -sfn .build/linux-amd64/dellhw_exporter dellhw_exporter
@@ -80,8 +79,8 @@ jobs:
     - run:
         name: docker login to Docker Hub and Quay.io
         command: |
-          docker login -e $DOCKER_EMAIL -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-          docker login -e $QUAY_EMAIL -u $QUAY_LOGIN -p $QUAY_PASSWORD quay.io
+          docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+          docker login -u $QUAY_LOGIN -p $QUAY_PASSWORD quay.io
     - run:
         name: docker push to Docker Hub and Quay.io
         command: |
