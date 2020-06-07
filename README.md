@@ -15,3 +15,12 @@ Replace the following variables with your Github username and project name:
 
 * `GITHUB_USER`
 * `PROJECT_NAME`
+
+### Secrets
+
+In addition to that you need Docker Hub Access token and Quay.io Robot Accounts and create GitHub Secrets named like this:
+
+* `DOCKER_USERNAME`
+* `DOCKER_PASSWORD`
+* `QUAYIO_USERNAME`
+* `QUAYIO_PASSWORD`
