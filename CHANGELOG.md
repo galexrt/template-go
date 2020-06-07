@@ -1,5 +1,3 @@
-## 0.0.1 / 2020-02-24
+## 0.0.1 / 2020-06-07
 
-+ [BUG] fixed everything
-* [FEATURE] added all the cool new features
-* [ENHANCEMENT] improved an existing feature
+* [ENHANCEMENT] initial files

@@ -23,5 +23,9 @@ _testmain.go
 *.test
 *.prof
 
-dist/
-dellhw_exporter
+/.bin/
+/.build/
+/.tarballs/
+/.package/
+
+/template-go
